@@ -1,2 +1,2 @@
-Run ngrok.exe which opens a terminal, put this command in ngrok: http --domain=united-visually-ray.ngrok-free.app 8000
+Run ngrok.exe which opens a terminal, put this command in ngrok: ngrok http --domain=united-visually-ray.ngrok-free.app 80
 if the auth key is needed do this: ngrok config add-authtoken 2lgRHJT2ysAREl7533K8Ai2csVn_3jy4vwU3mTd6AKzSyTje6
