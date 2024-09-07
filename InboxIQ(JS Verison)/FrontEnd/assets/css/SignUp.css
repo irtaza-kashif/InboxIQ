@@ -1,0 +1,455 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #F0FCFE;
+    /* #F0FCFE */
+    margin: 0;
+    flex-direction: column;
+}
+
+header{
+  padding: 20px;
+  text-align: center;
+}
+h1{
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.WelcomeTxt{
+  color: LightGray;
+}
+.CompanyName{
+  color: darkgrey;
+}
+
+
+.row{
+  height: 5.5rem;
+}
+.container {
+    display: flex;
+    justify-content:center; 
+    align-items: center;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    height: auto; /* Use auto to let it adjust based on content */
+    min-width: 55%; /* Adjust as necessary */
+    padding-right: calc(var(--bs-gutter-x)* .5);
+    padding-left: calc(var(--bs-gutter-x)* .5);
+    margin-right: auto;
+    margin-left: auto;
+    flex-direction: column  ;
+}  
+@media (min-width: 576px) {
+  .container, .container-sm {
+      max-width: 540px;
+  }
+}
+@media (max-width: 400px) {
+  .container, .container-sm {
+      min-height: 540px;
+  }
+}
+
+/* *, ::after, ::before {
+  box-sizing: border-box;
+} */
+.card {
+  --bs-card-spacer-y: 1rem;
+  --bs-card-spacer-x: 1rem;
+  --bs-card-title-spacer-y: 0.5rem;
+  --bs-card-title-color: ;
+  --bs-card-subtitle-color: ;
+  --bs-card-border-width: var(--bs-border-width);
+  --bs-card-border-color: var(--bs-border-color-translucent);
+  --bs-card-border-radius: var(--bs-border-radius);
+  --bs-card-box-shadow: ;
+  --bs-card-inner-border-radius: calc(var(--bs-border-radius) -(var(--bs-border-width)));
+  --bs-card-cap-padding-y: 0.5rem;
+  --bs-card-cap-padding-x: 1rem;
+  --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+  --bs-card-cap-color: ;
+  --bs-card-height: 150%;
+  --bs-card-color: ;
+  --bs-card-bg: var(--bs-body-bg);
+  --bs-card-img-overlay-padding: 1rem;
+  --bs-card-group-margin: 0.75rem;
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  min-height: 200px; /* Set a minimum height for flexibility */
+  height: auto;
+  color: var(--bs-body-color);
+  word-wrap: break-word;
+  background-color: var(--bs-card-bg);
+  background-clip: border-box;
+  border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  border-radius: 32px;
+  
+}
+#logo-col{
+  align-items: left ;
+  position:relative;
+}
+.img-fluid{
+  position:absolute;
+  width: 60px;
+  height: 60px;
+  left:10px;
+  top:20px
+}
+
+#signin-text-col{
+  text-align: left;
+}
+.card-title {
+    font-size:3rem;
+}
+.mt-3 a{
+  text-align: left;
+  text-decoration: none;
+}
+
+.GSign-In{
+  padding:5px 5px 5px 5px;
+  top: -5px;
+  position:relative;
+}
+.MSign-In{
+  padding:5px 5px 5px 5px;
+  top: 5px;
+  position:relative;
+}
+
+.gsi-material-button {
+    position:absolute;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: auto;
+    -webkit-appearance: none;
+    appearance: auto;
+    background-color: #E8E8E8;
+    opacity: 99%;
+    background-image: none;
+    border: 1px solid #131314;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #e3e3e3;
+    cursor: pointer;
+    font-family: 'Roboto', arial, sans-serif;
+    font-size: 14px;
+    height: 70%;
+    width: 100%;
+    letter-spacing: 0.25px;
+    outline: none;
+    overflow: hidden;
+    padding: 0 12px;
+    position: relative;
+    text-align: center;
+    -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
+    transition: background-color .218s, border-color .218s, box-shadow .218s;
+    vertical-align: middle;
+    white-space: nowrap;
+    min-width: min-content;
+    border-color: #8e918f;
+  }
+.gsi-material-button .gsi-material-button-icon {
+    height: 20px;
+    margin-right: 12px;
+    min-width: 20px;
+    width: 20px;
+  }
+  
+.gsi-material-button .gsi-material-button-content-wrapper {
+    -webkit-align-items: center;
+    align-items: center;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    text-align: left;
+  }
+  
+.gsi-material-button .gsi-material-button-contents {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    font-family: 'Roboto', arial, sans-serif;
+    color: #131314;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+  }
+  
+.gsi-material-button .gsi-material-button-state {
+    -webkit-transition: opacity .218s;
+    transition: opacity .218s;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+.gsi-material-button:disabled {
+    cursor: default;
+    background-color: #13131461;
+    border-color: #8e918f1f;
+  }
+  
+.gsi-material-button:disabled .gsi-material-button-state {
+    background-color: #e3e3e31f;
+  }
+  
+.gsi-material-button:disabled .gsi-material-button-contents {
+    opacity: 38%;
+  }
+  
+  .gsi-material-button:disabled .gsi-material-button-icon {
+    opacity: 38%;
+  }
+  
+  .gsi-material-button:not(:disabled):active .gsi-material-button-state, 
+  .gsi-material-button:not(:disabled):focus .gsi-material-button-state {
+    background-color: black;
+    opacity: 12%;
+  }
+  
+  .gsi-material-button:not(:disabled):hover {
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+  }
+  
+  .gsi-material-button:not(:disabled):hover .gsi-material-button-state {
+    background-color: black;
+    opacity: 12%;
+  }
+
+
+
+.bsk-btn{
+    position:absolute;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: auto;
+    -webkit-appearance: none;
+    appearance: auto;
+    background-color: #E8E8E8;
+    opacity: 99%;
+    background-image: none;
+    border: 1px solid #131314;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #131314;
+    cursor: pointer;
+    font-family: 'Roboto', arial, sans-serif;
+    font-size: 14px;
+    height: 70%;
+    width: 100%;
+    letter-spacing: 0.25px;
+    outline: none;
+    overflow: hidden;
+    padding: 0 12px;
+    position: relative;
+    text-align: center;
+    -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
+    transition: background-color .218s, border-color .218s, box-shadow .218s;
+    vertical-align: middle;
+    white-space: nowrap;
+    min-width: min-content;
+    border-color: #8e918f;
+}
+
+
+
+.bsk-btn .gsi-material-button-icon {
+  height: 20px;
+    margin-right: 12px;
+    min-width: 20px;
+    width: 20px;
+}
+.MSign-In-button-icon
+{
+  height: 20px;
+  width: 20px;
+  margin-right: 12px;
+}
+.bsk-btn .MSign-In-content-wrapper {
+  -webkit-align-items: center;
+  align-items: center;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  text-align: left;
+}
+
+.bsk-btn .MSign-In-button-contents {
+  -webkit-flex-grow: 1;
+    flex-grow: 1;
+    font-family: 'Roboto', arial, sans-serif;
+    color: #131314;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+  }
+
+.bsk-btn .MSign-In-button-state {
+  -webkit-transition: opacity .218s;
+  transition: opacity .218s;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.bsk-btn:disabled {
+  cursor: default;
+  background-color: #13131461;
+  border-color: #8e918f1f;
+}
+
+.bsk-btn:disabled .MSign-In-button-state {
+  background-color: #e3e3e31f;
+}
+
+.bsk-btn:disabled .MSign-in-button-contents {
+  opacity: 38%;
+}
+
+.bsk-btn:disabled .MSign-In-button-icon {
+  opacity: 38%;
+}
+
+.bsk-btn:not(:disabled):active .MSign-In-button-state, 
+.bsk-btn:not(:disabled):focus .MSign-In-button-state {
+  background-color: black;
+  opacity: 12%;
+}
+
+.bsk-btn:not(:disabled):hover {
+  -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+
+.bsk-btn:not(:disabled):hover .MSign-In-button-state {
+  background-color: black;
+  opacity: 12%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.gsi-material-button, .bsk-btn {
+  padding: 10px 10px; /* Adjust padding for a better look */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1080px) {
+  .card-title {
+    font-size:2rem;
+}
+}
+
+
+
+
+
+@media screen and (max-width: 768px) {
+  .nav {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    background-color: var(--nav-bg);
+    color: var(--dark-color-alt);
+    width: 100%;
+    height: 100vh;
+    padding: 1.5rem 0;
+    z-index: var(--z-fixed);
+    -webkit-transition: .5s;
+    transition: .5s;
+  }
+}
+
+.text-muted{
+
+  margin-bottom: 0rem;
+}
