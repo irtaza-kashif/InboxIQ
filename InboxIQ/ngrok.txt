@@ -1,1 +1,0 @@
-##Using nrgok run ngrok.exe and run this command in the terminal: ngrok http --domain=united-visually-ray.ngrok-free.app 80
