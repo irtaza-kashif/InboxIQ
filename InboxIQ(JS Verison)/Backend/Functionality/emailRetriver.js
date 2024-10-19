@@ -4,14 +4,63 @@ const fs = require('fs');
 const path = require('path');
 
 
+
+authenticate();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function getEmailsSnipp(num){
+    const tempEmailList =retrieveUncheckedEmailContents(num)
+    const emails = []
+    for (let i = 0; i < tempEmailList.length; i++){
+        emails.append(tempEmailList[i].snippet) 
+    }
+    return emails
+}
+
 // Gathers all new emails not yet checked by InboxIQ and returns them in a list of objects where each object contains the unparsed data of one email
-async function retrieveUncheckedEmailContents() {
-    const results = await service.users.messages.list({
+async function retrieveRawEmailContents(num) {
+    const results = await gapi.client.gmail.users.message.list({
         userId: 'me',
-        maxResults: 500,
-        q: 'has:nouserlabels'
+        maxResults: num,
+        // q: 'has:nouserlabels'
     });
-    const unreadEmails = results.data.messages || [];
+    const unreadEmails = results.data.messages || console.log("erorr");
     const ids = retrieveEmailIds(unreadEmails);
     return retrieveEmailContents(ids);
 }
@@ -19,7 +68,7 @@ async function retrieveUncheckedEmailContents() {
 // Given a list of email IDs, will return un-parsed message data for all of them in a list of objects
 async function retrieveEmailContents(ids) {
     const messages = await Promise.all(ids.map(id => 
-        service.users.messages.get({ userId: 'me', id: id })
+        gapi.client.gmail.users.messages.get({ userId: 'me', id: id })
     ));
     return messages.map(message => message.data);
 }
@@ -75,6 +124,3 @@ function parseEmailData(emails) {
 }
 
 // HOW TO ACCESS ATTACHMENTS: emails[0].payload.parts[1].body.attachmentId
-
-authenticate();
-

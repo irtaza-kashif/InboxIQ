@@ -6,7 +6,16 @@
 
         <!-- ===== CSS ===== -->
         <link rel="stylesheet" href="assets/css/index.css">
+        <script async defer src="https://apis.google.com/js/api.js"></script>
+        <script async defer src="https://accounts.google.com/gsi/client"  ></script>
+        <script type="module" src="assets/js/google.js"></script>
+        
+        <script type="module" src="assets/js/emailFun.js"></script>
 
+
+
+
+        
         <title>Menu responsive</title>
     </head>
     <body>
@@ -34,7 +43,7 @@
                     <div class="nav__menu">
                         <ul class="nav__list">
                             <li class="nav__item"><a href="index.html" class="nav__link active"><text id = "active_text">Home</text></a></li>
-                            <li class="nav__item"><a href="about.html" class="nav__link">About</a></li>
+                            <li class="nav__item"><a href="about.html" class="nav__link">Calendar</a></li>
                             <li class="nav__item"><a href="pricing.html" class="nav__link">Pricing</a></li>
                             <li class="nav__item"><a href="contact.html" class="nav__link">Contact</a></li>
                             <li class="nav__item"><a href="Signup.html" class="nav__link">Sign Up</a></li>
@@ -48,11 +57,45 @@
                 </div>
             </nav>
         </header>
+        <div class = "main_content" id = "mainContent">
+            <div class="container">
+                <div class = "labelContainer"> 
+                    <div id = "labelTitle"> 
+                        <h1> Catagories</h1>
+                    </div>
 
-        <!-- ===== IONICONS ===== -->
-        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+                    <div id = "labelListContainer">
+                        <ul id = "labelList">
 
-        <!--===== MAIN JS =====-->
-        <script src="assets/js/main.js"></script>
+                        </ul>
+                    </div>
+                        
+            
+                </div>
+                
+                <div class = "emailContainer">
+                    <div class = "searchBar" > 
+                        <ion-icon name="search-outline" id = "searchIcon"></ion-icon>
+                        <input type="text" id = "searchInput" placeholder="Search Mail">
+                        
+
+                    </div>
+                    <div class = "emailsBox">
+                        <ul id = "emailList">
+
+                        </ul>
+                    </div>
+                    
+                </div> 
+            </div>
+    
+        </div>
+
     </body>
+            <!-- ===== IONICONS ===== -->
+            <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+
+            <!--===== MAIN JS =====-->
+            <script src="assets/js/main.js"></script>
+
 </html>

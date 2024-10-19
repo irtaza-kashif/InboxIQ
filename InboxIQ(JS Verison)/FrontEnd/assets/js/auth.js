@@ -1,128 +1,40 @@
+import { gisLoaded} from './google.js';
+document.addEventListener('DOMContentLoaded', () => {
+  tokenClient = gisLoaded();  // Ensure this is correctly initialized
 
-      /* exported gapiLoaded */
-      /* exported gisLoaded */
-      /* exported handleAuthClick */
-      /* exported handleSignoutClick */
 
-      // TODO(developer): Set to client ID and API key from the Developer Console
-      const CLIENT_ID = '977843102981-1enineclv7ltldjjem8ij0a97snbgba8.apps.googleusercontent.com';
-      const API_KEY = 'AIzaSyCQQmqo1pXGKsDymDpBnTpc1qdpKkRuQN0';
+});
 
-      // Discovery doc URL for APIs used by the quickstart
-      const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest';
+let tokenClient;
 
-      // Authorization scopes required by the API; multiple scopes can be
-      // included, separated by spaces.
-      const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
+function handleAuthClick() {
+  tokenClient.callback = async (response) => {
+    if (response.error !== undefined) {
+      console.error("Error during authorization:", response);
+      document.getElementById('error-message').classList.remove('d-none');
+      return;
+    }
 
-      let tokenClient;
-      let gapiInited = false;
-      let gisInited = false;
+    // Save the access token in localStorage for use in other JS files
+    const token = gapi.client.getToken();
+    if (token) {
+      localStorage.setItem('gmailAccessToken', JSON.stringify(token));
+      // Redirect or take appropriate action after login
+      window.location.href = "../../index.html";
+    } else {
+      console.error("Failed to retrieve token.");
+      document.getElementById('error-message').classList.remove('d-none');
+    }
+  };
 
-      document.getElementById('GAuth-button').style.visibility = 'hidden';
-      document.getElementById('Continue-Button').style.visibility = 'hidden';
+  const token = gapi.client.getToken();
+  if (token === null) {
+    tokenClient.requestAccessToken({ prompt: 'consent' });
+  } else {
+    tokenClient.requestAccessToken({ prompt: '' });
+  }
+}
 
-      /**
-       * Callback after api.js is loaded.
-       */
-      function gapiLoaded() {
-        gapi.load('client', initializeGapiClient);
-      }
+window.handleAuthClick = handleAuthClick;
 
-      /**
-       * Callback after the API client is loaded. Loads the
-       * discovery doc to initialize the API.
-       */
-      async function initializeGapiClient() {
-        await gapi.client.init({
-          apiKey: API_KEY,
-          discoveryDocs: [DISCOVERY_DOC],
-        });
-        gapiInited = true;
-        maybeEnableButtons();
-      }
 
-      /**
-       * Callback after Google Identity Services are loaded.
-       */
-      function gisLoaded() {
-        tokenClient = google.accounts.oauth2.initTokenClient({
-          client_id: CLIENT_ID,
-          scope: SCOPES,
-          callback: '', // defined later
-        });
-        gisInited = true;
-        maybeEnableButtons();
-      }
-
-      /**
-       * Enables user interaction after all libraries are loaded.
-       */
-      function maybeEnableButtons() {
-        if (gapiInited && gisInited) {
-          document.getElementById('gsi-material-button').style.visibility = 'visible';
-        }
-      }
-
-      /**
-       *  Sign in the user upon button click.
-       */
-      function handleAuthClick() {
-        tokenClient.callback = async (resp) => {
-          if (resp.error !== undefined) {
-            throw (resp);
-          }
-          document.getElementById('bsk-btn').style.visibility = 'visible';
-          document.getElementById('gsi-material-button').innerText = 'Refresh';
-          await listLabels();
-        };
-
-        if (gapi.client.getToken() === null) {
-          // Prompt the user to select a Google Account and ask for consent to share their data
-          // when establishing a new session.
-          tokenClient.requestAccessToken({prompt: 'consent'});
-        } else {
-          // Skip display of account chooser and consent dialog for an existing session.
-          tokenClient.requestAccessToken({prompt: ''});
-        }
-      }
-
-      /**
-       *  Sign out the user upon button click.
-       */
-      function handleSignoutClick() {
-        const token = gapi.client.getToken();
-        if (token !== null) {
-          google.accounts.oauth2.revoke(token.access_token);
-          gapi.client.setToken('');
-          document.getElementById('content').innerText = '';
-          document.getElementById('authorize_button').innerText = 'Authorize';
-          document.getElementById('signout_button').style.visibility = 'hidden';
-        }
-      }
-
-      /**
-       * Print all Labels in the authorized user's inbox. If no labels
-       * are found an appropriate message is printed.
-       */
-      async function listLabels() {
-        let response;
-        try {
-          response = await gapi.client.gmail.users.labels.list({
-            'userId': 'me',
-          });
-        } catch (err) {
-          document.getElementById('content').innerText = err.message;
-          return;
-        }
-        const labels = response.result.labels;
-        if (!labels || labels.length == 0) {
-          document.getElementById('content').innerText = 'No labels found.';
-          return;
-        }
-        // Flatten to string to display
-        const output = labels.reduce(
-            (str, label) => `${str}${label.name}\n`,
-            'Labels:\n');
-        document.getElementById('content').innerText = output;
-      }
