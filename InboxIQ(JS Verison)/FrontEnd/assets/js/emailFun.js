@@ -1,12 +1,15 @@
-// Initialize Gmail API Client// TODO(developer): Set to client ID and API key from the Developer Console
-//Uses the following functions to initialize
-import { gisLoaded, initializeGapiClient, loadGapi} from './google.js';
+// Initialize Gmail API Client
+// TODO(developer): Set to client ID and API key from the Developer Console
+// Uses the following functions to initialize
+import { gisLoaded, initializeGapiClient, loadGapi } from './google.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     gisLoaded();
-    loadGapi()
+    loadGapi();
     initializeGapiClient();
-  });
+});
 
+// Initialize Gmail API Client
 async function initializeGmailClient() {
     await initializeGapiClient();
     try {
@@ -24,8 +27,13 @@ async function initializeGmailClient() {
             const token = JSON.parse(storedToken);
             console.log(JSON.stringify(token));
             gapi.client.setToken(token);
-            await populateLabels(); // Call populateLabels after setting token
-            await console.log(getEmailsSnips(5))
+            await populateLabels();  // Call populateLabels after setting token
+            const emails = await retrieveRawEmailsContents(5);  // Await the promise here
+            console.log(typeof emails);
+            console.log(emails);
+            const emailSnips = await getEmailsSnips(5)
+            console.log(emailSnips);
+            await populateEmails();
         } else {
             console.error("No access token found. Please sign in first.");
             return;
@@ -35,13 +43,13 @@ async function initializeGmailClient() {
     }
 }
 
-window.onload = initializeGmailClient();
+window.onload = initializeGmailClient;
 
 // Function to list Gmail labels
 async function listLabels() {
     let labels = []; 
     try {
-        const response = await gapi.client.gmail.users.labels.list({'userId': 'me'});
+        const response = await gapi.client.gmail.users.labels.list({ 'userId': 'me' });
         labels = response.result.labels;
         if (!labels || labels.length === 0) {
             console.log('No labels found.');
@@ -53,111 +61,85 @@ async function listLabels() {
     }
     return labels;
 }
+
 // Populate the label list in the DOM
 async function populateLabels() {
     let data = await listLabels();
-    if (!data || data.length === 0) return; 
-    
+    if (!data || data.length === 0) return;
+
     let list = document.getElementById("labelList");
-    let fragment = document.createDocumentFragment(); 
-    
+    let fragment = document.createDocumentFragment();
+
     for (let i = 0; i < data.length; ++i) {
         let li = document.createElement('li');
-        li.innerText = data[i].name; 
-        fragment.appendChild(li); 
+        li.innerText = data[i].name;
+        fragment.appendChild(li);
     }
-    
+
     list.appendChild(fragment);
 }
 
+// Function to populate emails
 async function populateEmails() {
-    let data = await getEmailsSnipp(50);
-    if (!data || data.length === 0) return; 
-    
+    let data = await getEmailsSnips(10);
+    if (!data || data.length === 0) return;
+
     let list = document.getElementById("emailList");
-    let fragment = document.createDocumentFragment(); 
-    
+    let fragment = document.createDocumentFragment();
+
     for (let i = 0; i < data.length; ++i) {
         let li = document.createElement('li');
-        li.innerText = data[i].name; 
-        fragment.appendChild(li); 
+        li.innerText = data[i];  // Corrected to access the snippet from the array
+        fragment.appendChild(li);
     }
-    
+
     list.appendChild(fragment);
 }
 
-
-
-
-
-// Request access token
-
-function getEmailsSnips(count, query) {
+// Retrieve email snippets
+async function getEmailsSnips(num, query) {
     try {
-        // Retrieve the raw email message IDs based on the count and query
-        const messages = retrieveRawEmailsContents(count, query);
-        
-        // Create an array to hold the snippets
-        const snips = [];
+        // Fetch the full message objects using the fetchFullMessages function
+        const messages = await retrieveRawEmailsContents(num, query);
 
-        // Check if messages is an array and has message IDs
-        if (Array.isArray(messages) && messages.length > 0) {
-            // Use Promise.all to fetch snippets for each message ID
-            const snippetsPromises = messages.map(async (message) => {
-                const response = await gapi.client.gmail.users.messages.get({
-                    userId: 'me',
-                    id: message.id // Make sure 'id' is a valid property in your messages
-                });
-                return response.result.snippet; // Extract and return the snippet
-            });
-            
-            // Wait for all snippet promises to resolve
-            snips.push(...Promise.all(snippetsPromises));
-        }
+        // Extract the snippets from each message
+        const snippets = messages.map(message => message.result.snippet);
 
-        return snips; // Return the array of snippets
+        return snippets; // Return the array of snippets
     } catch (error) {
-        console.error("Error fetching email snippets:", error);
+        console.error("Error extracting snippets:", error);
         return []; // Return an empty array in case of error
     }
 }
 
+// Retrieve raw email contents
+async function retrieveRawEmailsContents(num, query) {
+    try {
+        // Await the API request
+        const results = await gapi.client.gmail.users.messages.list({
+            userId: 'me',
+            maxResults: num,
+            q: query
+        });
+        const unreadEmails = results.result.messages;
+        const ids = getEmailsIDs(unreadEmails);
 
-function retrieveRawEmailsContents(num, query ) {
-    try{
-        const results = gapi.client.gmail.users.messages.list({
-        userId: 'me',
-        maxResults: num,
-        q: query
-    });
-    const unreadEmails = results.result.messages;
-    const ids = getEmailsIDs(unreadEmails);
-    return retrieveEmailContents(ids);
-}
-catch(error){
-    console.error("Error fetching Gmail messages:", error);
-    return;
-}
-
-
-
-    
+        return await retrieveEmailContents(ids);  // Await the retrieval of the email content
+    } catch (error) {
+        console.error("Error fetching Gmail messages:", error);
+        return [];
+    }
 }
 
-
-function getEmailsIDs(unreadEmails){
+// Extract email IDs from the messages
+function getEmailsIDs(unreadEmails) {
     return unreadEmails.map(email => email.id);
 }
 
-function retrieveEmailContents(ids) {
-    var messages = []
-    ids.forEach(element => {
-        messages.push(gapi.client.gmail.users.messages.get({ userId: 'me', id: element }))
-    });
-    console.log(typeof messages)
-    console.log(messages[1])
+// Retrieve content of each email by ID
+async function retrieveEmailContents(ids) {
+    const messages = await Promise.all(
+        ids.map(id => gapi.client.gmail.users.messages.get({ userId: 'me', id: id }))
+    );
     return messages;
 }
-
-
-

@@ -1,7 +1,7 @@
-import { gisLoaded} from './google.js';
+import { gisLoaded, loadGapi} from './google.js';
 document.addEventListener('DOMContentLoaded', () => {
   tokenClient = gisLoaded();  // Ensure this is correctly initialized
-
+  loadGapi()
 
 });
 
