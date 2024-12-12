@@ -1,0 +1,151 @@
+/*===== VARIABLES =====*/
+:root {
+    --header-height: 3.5rem;
+    --nav-bg: #f0f8ff; /* Slight bluish color */
+    --body-bg: #ffffff; /* Whitish background */
+    --sidebar-bg: #f0f8ff;
+    --content-bg: #ffffff;
+    --text-color: #333333;
+    --primary-color: #3664F4;
+    --dark-color: #070D1F;
+    --border-color: #dddddd;
+    --button-color: #3664F4;
+    --cancel-color: #e74c3c;
+    --body-font: 'Arial', sans-serif;
+    --normal-font-size: 0.938rem;
+    --heading-font-size: 1.5rem;
+}
+/* General Reset trhthjrdj*/
+body {
+    font-family: var(--body-font);
+    background-color: var(--body-bg);
+    margin: 0;
+}
+
+/* Navbar */
+.header {
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--nav-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.header__logo {
+    font-size: 1.5rem;
+    color: var(--text-color);
+}
+
+.header__nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.header__nav ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: var(--normal-font-size);
+}
+
+.header__nav ul li a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.header__profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header__profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Main Settings Page */
+.settings__container {
+    display: flex;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+}
+
+/* Sidebar */
+.settings__sidebar {
+    background-color: var(--sidebar-bg);
+    width: 250px;
+    padding: 1.5rem;
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+}
+
+.settings__sidebar ul {
+    list-style: none;
+}
+
+.settings__sidebar ul li a {
+    color: var(--text-color);
+    display: block;
+    padding: 0.8rem 0;
+    text-decoration: none;
+}
+
+.settings__sidebar ul li a.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Main Content */
+.settings__content {
+    flex: 1;
+    padding: 2rem;
+    background-color: var(--content-bg);
+}
+
+.settings__content h1 {
+    font-size: var(--heading-font-size);
+    color: var(--text-color);
+}
+
+.settings__form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.settings__item label {
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
+}
+
+.settings__item input {
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+.settings__buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.settings__btn {
+    padding: 0.8rem 1.5rem;
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.settings__btn--cancel {
+    background-color: var(--cancel-color);
+}
+
+.settings__btn:hover {
+    opacity: 0.9;
+}

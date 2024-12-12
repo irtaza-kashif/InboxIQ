@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="assets/css/settings.css">
+
+        <title>Settings - InboxIQ</title>
+    </head>
+    <body>
+        <!-- Navbar djhdjydj -->
+        <header class="header">
+            <a href="#" class="header__logo">InboxIQ</a>
+            <nav class="header__nav">
+                <ul>
+                    <li><a href="index.html">Overview</a></li>
+                    <li><a href="mail.html">Mail</a></li>
+                    <li><a href="calendar.html">Calendar</a></li>
+                    <li><a href="settings.html" class="active">Settings</a></li>
+                </ul>
+            </nav>
+            <div class="header__profile">
+                <span>Irtaza Kashif</span>
+                <img src="assets/img/icon-128.png" alt="Profile Picture">
+            </div>
+        </header>
+
+        <!-- Main Settings Page -->
+        <div class="settings__container">
+            <!-- Scrollable List of Settings Categories -->
+            <aside class="settings__sidebar">
+                <ul>
+                    <li><a href="#" class="active">Account</a></li>
+                    <li><a href="#">Appearance</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                    <li><a href="#">Notifications</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Billing</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Settings Content -->
+            <section class="settings__content">
+                <h1>Account Settings</h1>
+                <form class="settings__form">
+                    <div class="settings__item">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" value="Irtaza Kashif">
+                    </div>
+
+                    <div class="settings__item">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" value="irtaza.kashif@gmail.com">
+                    </div>
+
+                    <div class="settings__item">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter new password">
+                    </div>
+
+                    <div class="settings__buttons">
+                        <button type="submit" class="settings__btn">Save Changes</button>
+                        <button type="reset" class="settings__btn settings__btn--cancel">Cancel</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- ===== IONICONS ===== -->
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+
+        <!--===== MAIN JS =====-->
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>
